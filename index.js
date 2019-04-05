@@ -5,9 +5,20 @@ if (!hasMedia()) {
     const canvas = document.createElement('canvas');
     const img = document.querySelector('img');
 
+    // This handles the image application
+    var elementsArray = document.querySelectorAll(".btn");
+    console.log(elementsArray);
+    console.log(elementsArray.length);
+    elementsArray.forEach(function(element) {
+        element.addEventListener('input', function() {
+            alert("click works");
+        });
+    });
+
     window.addEventListener('load', startup, false);
 }
 
+// Verifies the existence of media devices for use of video/audio
 function hasMedia() {
     return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
 }
@@ -16,6 +27,8 @@ function handleError(event) {
     console.log("Error");
 }
 
+// Asks for permission to use media devices and activates as such
+// Also manages screenshots
 function startup() {
     navigator.mediaDevices.getUserMedia({
         video: true,
@@ -34,6 +47,7 @@ function startup() {
     }).catch(handleError);
 }
 
+// Function that handlees the screenshot appending to the canvas
 function takeScreenshot() {
     let video = document.querySelector('video');
     var img = document.getElementById('screenshotImage');
