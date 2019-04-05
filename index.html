@@ -13,15 +13,14 @@
     <body>
         <div class="jumbotron jumbotron-fluid">
             <h1 class="display-4" style="text-align: center; padding-bottom: 20px">ExperiVid</h1>
-            <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-7">
+            <div class="row" id="insideJumbo">
+                <div class="col-md-6">
                     <div class="card text-center">
                         <div class="card-header">
                         Camera View
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Match the Pose!</h5>
+                            <h5 class="card-title">Match the Pose</h5>
                             <p> Press "Enter" to take a screenshot</p>
                             <div id="videoContainer">
                                 <video id="videobox" autoplay></video>
@@ -30,24 +29,67 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-6">
                     <div class="card text-center">
                         <div class="card-header">
                         ScreenShot View
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Would you like to save?</h5>
-                            <p> If so, press spacebar</p>
+                            <h5 class="card-title">Would you like to save this image?</h5>
+                            <p> If so, press "Spacebar"</p>
                             <div id="videoContainer">
-                                <img src="">
-                                <canvas style="display: none"></canvas>
+                                <img id="screenshotImage" src="">
+                                <canvas style="display:none"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
+
+        <div style="padding-left: 40px">
+            <h2> Directions </h2>
+            <ol>
+                <li> Select an image below to pose as and click "Apply Now".</li>
+                <li> With the image overlayed on your camera, stand back and pose as the character.</li>
+                <li> Whenever you are ready, press "Enter" to take a screenshot! (You may do this as many times as you want)</li>
+                <li> If at any point you want to save your screenshot, hit "Spacebar"</li>
+            </ol>
+        </div>
+
+        <div class="row" id="subsection">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="./images/flash.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">The Flash</h5>
+                    <a href="#" class="btn btn-primary">Apply Image</a>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="./images/shazam.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Shazam</h5>
+                        <a href="#" class="btn btn-primary">Apply Image</a>
+                    </div>
+                </div>
+
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="./images/spiderman.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Spiderman</h5>
+                        <a href="#" class="btn btn-primary">Apply Image</a>
+                    </div>
+                </div>
+
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="./images/superman.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Superman</h5>
+                        <a href="#" class="btn btn-primary">Apply Image</a>
+                    </div>
+                </div>
+        </div>
+
     </body>
 </html>

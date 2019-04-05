@@ -1,3 +1,17 @@
+#subsection {
+    padding: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    align-items: center;
+    justify-content: space-between;
+}
+
+#insideJumbo {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
 #videobox {
     border: solid black 1px;
     height: 100%;

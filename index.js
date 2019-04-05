@@ -6,12 +6,6 @@ if (!hasMedia()) {
     const img = document.querySelector('img');
 
     window.addEventListener('load', startup, false);
-
-    document.addEventListener('keydown', function(e) {
-        if (e.keyCode ===  13 && webcam !== null) {
-            
-        }
-    });
 }
 
 function hasMedia() {
@@ -24,12 +18,36 @@ function handleError(event) {
 
 function startup() {
     navigator.mediaDevices.getUserMedia({
-        video: true
+        video: true,
+        //audio: true
     }).then(function(mediaStreamObject) {
         let video = document.querySelector('video');
         video.srcObject = mediaStreamObject;
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode == 13 && video != null) {
+                takeScreenshot();
+            }
+        })
         video.onloadedmetadata = function(event) {
             video.play();
         };
     }).catch(handleError);
+}
+
+function takeScreenshot() {
+    let video = document.querySelector('video');
+    var img = document.getElementById('screenshotImage');
+    var context;
+    var width = video.offsetWidth, 
+        height = video.offsetHeight;
+
+    canvas = document.querySelector('canvas');
+    canvas.width = width;
+    canvas.height = height;
+
+    context = canvas.getContext('2d');
+    context.drawImage(video, 0, 0, width, height);
+
+    img.src = canvas.toDataURL('image/png');
+    document.body.appendChild(canvas);
 }
