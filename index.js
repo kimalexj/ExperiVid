@@ -12,13 +12,6 @@ if (!hasMedia()) {
             handleSpeech();
         }
     });
-    
-    /*
-    console.log(document.getElementById('mic'));
-    if (document.getElementById('mic') != null) {
-        document.getElementById('mic').addEventListener('click', handleSpeech(e));
-    }
-    */
 }
 
 // Verifies the existence of media devices for use of video/audio
@@ -30,12 +23,10 @@ function handleError(event) {
     console.log("Error");
 }
 
-// Asks for permission to use media devices and activates as such
-// Also manages screenshots
+// Media device startup
 function startup() {
     navigator.mediaDevices.getUserMedia({
-        video: true,
-        //audio: true
+        video: true
     }).then(function(mediaStreamObject) {
         let video = document.querySelector('video');
         video.srcObject = mediaStreamObject;
@@ -71,6 +62,7 @@ function handleSpeech() {
         }
     }
 }
+
 // Function that handlees the screenshot appending to the canvas
 function takeScreenshot() {
     let video = document.querySelector('video');
