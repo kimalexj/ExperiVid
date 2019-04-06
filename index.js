@@ -3,7 +3,13 @@ if (!hasMedia()) {
     alert("Error: Cannot access get user media API");
 } else {
     window.addEventListener('load', startup, false);
-    document.addEventListener('click', onButtonClick);
+
+    // Additional Event listener to handle image changes
+    document.addEventListener('click', function(e) {
+        if (e.target.tagName == "BUTTON") {
+            alert("this works");
+        }
+    });
 }
 
 // Verifies the existence of media devices for use of video/audio
@@ -13,16 +19,6 @@ function hasMedia() {
 
 function handleError(event) {
     console.log("Error");
-}
-
-function onButtonClick() {
-     // This handles the image application
-     var elementsArray = document.querySelectorAll('button');
-     elementsArray.forEach(function(element) {
-         element.addEventListener('click', function() {
-             //Insert Image application here
-         });
-     });
 }
 
 // Asks for permission to use media devices and activates as such
