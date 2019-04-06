@@ -7,7 +7,7 @@ if (!hasMedia()) {
     // Additional Event listener to handle image changes
     document.addEventListener('click', function(e) {
         if (e.target.tagName == "BUTTON") {
-            alert("this works");
+            document.getElementById('selectedImage').src = './images/' + e.target.id + '.jpg';
         }
     });
 }

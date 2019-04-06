@@ -7,6 +7,13 @@
     justify-content: space-between;
 }
 
+#selectedImage {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+}
+
 #insideJumbo {
     padding-left: 30px;
     padding-right: 30px;
@@ -16,9 +23,11 @@
     border: solid black 1px;
     height: 100%;
     width: 100%;
+    z-index: 2;
 }
 
 #videoContainer {
     display: flex;
     justify-content: center;
+    position: relative;
 }
