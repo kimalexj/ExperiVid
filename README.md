@@ -1,4 +1,4 @@
-# ExperiVid
+# ExperiVid v1
 A RealityLab Project
 
 **Under the supervision of Aditya Sankar and Soumyadip Sengupta**
