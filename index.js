@@ -8,8 +8,17 @@ if (!hasMedia()) {
     document.addEventListener('click', function(e) {
         if (e.target.tagName == "BUTTON") {
             document.getElementById('selectedImage').src = './images/' + e.target.id + '.jpg';
+        } else if (e.target.id == 'mic') {
+            handleSpeech();
         }
     });
+    
+    /*
+    console.log(document.getElementById('mic'));
+    if (document.getElementById('mic') != null) {
+        document.getElementById('mic').addEventListener('click', handleSpeech(e));
+    }
+    */
 }
 
 // Verifies the existence of media devices for use of video/audio
@@ -41,6 +50,27 @@ function startup() {
     }).catch(handleError);
 }
 
+function handleSpeech() {
+    // Receiving speech command
+    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+
+        var recognition = new webkitSpeechRecognition();
+
+        recognition.lang = "en-US";
+        recognition.start();
+
+        recognition.onresult = function(e) {
+            if (e.results[0][0].transcript == 'take') {
+                takeScreenshot();
+                alert("Screenshot Taken");
+            }
+        };
+
+        recognition.onerror = function(e) {
+            recognition.stop();
+        }
+    }
+}
 // Function that handlees the screenshot appending to the canvas
 function takeScreenshot() {
     let video = document.querySelector('video');
