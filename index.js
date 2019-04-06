@@ -57,4 +57,14 @@ function takeScreenshot() {
     context.drawImage(video, 0, 0, width, height);
 
     img.src = canvas.toDataURL('image/png');
+
+    var image = canvas.toDataURL('image');
+    document.addEventListener('keydown', function(e) {
+        if (e.keyCode == 16) {
+            var a = document.createElement('a');
+            a.href = image;
+            a.download = 'screenshot.jpg'
+            a.click();
+        }
+    });
 }
