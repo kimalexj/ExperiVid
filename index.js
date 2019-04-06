@@ -53,7 +53,7 @@ function takeScreenshot() {
     var width = video.offsetWidth, 
         height = video.offsetHeight;
 
-    canvas = document.querySelector('canvas');
+    canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
 
@@ -61,5 +61,4 @@ function takeScreenshot() {
     context.drawImage(video, 0, 0, width, height);
 
     img.src = canvas.toDataURL('image/png');
-    document.body.appendChild(canvas);
 }

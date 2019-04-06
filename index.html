@@ -14,8 +14,8 @@
         <!-- Primary Display for Webcam and screenshot -->
         <div class="jumbotron jumbotron-fluid">
             <h1 class="display-4" style="text-align: center; padding-bottom: 20px">ExperiVid</h1>
-            <div class="row" id="insideJumbo">
-                <div class="col-md-6">
+            <div class="row" id="insideJumbo" style="display:flex; justify-content: center">
+                <div class="col-md-10">
                     <div class="card text-center">
                         <div class="card-header">
                         Camera View
@@ -30,7 +30,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-6" style="padding-top: 30px">
                     <div class="card text-center">
                         <div class="card-header">
                         ScreenShot View
@@ -39,8 +39,7 @@
                             <h5 class="card-title">Would you like to save this image?</h5>
                             <p> If so, press "Spacebar"</p>
                             <div id="videoContainer">
-                                <img id="screenshotImage" src="">
-                                <canvas style="display:none"></canvas>
+                                <img id="screenshotImage" width="600" height="300" style="border: 0">
                             </div>
                         </div>
                     </div>
