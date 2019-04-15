@@ -28,25 +28,33 @@
                             <img id="mic" src="mic.png" width="40" height="40">
                             <p> (Press "Enter" to take a screenshot, or click the mic to begin voice recognition.)</p>
                             <div id="videoContainer">
-                                <img id="selectedImage" src="./images/shazam.jpg">
                                 <video id="videobox" autoplay></video>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6" style="padding-top: 30px">
-                    <div class="card text-center">
-                        <div class="card-header">
-                        ScreenShot View
+                <!-- Hidden modal trigger -->
+                <button type="button" data-target="#screenshotModal" id='activateModal' style="display: none"></button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="screenshotModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Would you like to save this image?</h5>
-                            <p> If so, press "Shift"</p>
-                            <div id="videoContainer">
-                                <img id="screenshotImage" width="600" height="335" style="border: 0; display: flex">
-                            </div>
+                        <div class="modal-body">
+                        ...
                         </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -65,42 +73,5 @@
             </ol>
         </div>
         <!--Directions end-->
-
-        <!-- Image cards for posing options-->
-        <div class="row" id="subsection">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="./images/flash.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">The Flash</h5>
-                    <button type="button" class="btn btn-primary choice" id="flash">Apply Image</button>
-                </div>
-            </div>
-
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="./images/shazam.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Shazam</h5>
-                    <button type="button" class="btn btn-primary choice" id="shazam">Apply Image</button>
-                </div>
-            </div>
-
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="./images/spiderman.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Spiderman</h5>
-                    <button type="button" class="btn btn-primary choice" id="spiderman">Apply Image</button>
-                </div>
-            </div>
-
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="./images/superman.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Superman</h5>
-                    <button type="button" class="btn btn-primary choice" id="superman">Apply Image</button>
-                </div>
-            </div>
-        </div>
-        <!--End Image cards-->
-
     </body>
 </html>

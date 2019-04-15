@@ -3,15 +3,11 @@ if (!hasMedia()) {
     alert("Error: Cannot access get user media API");
 } else {
     window.addEventListener('load', startup, false);
-
-    // Additional Event listener to handle image changes
     document.addEventListener('click', function(e) {
-        if (e.target.tagName == "BUTTON") {
-            document.getElementById('selectedImage').src = './images/' + e.target.id + '.jpg';
-        } else if (e.target.id == 'mic') {
-            handleSpeech();
+        if (e.target.id == 'special') {
+            openModal();
         }
-    });
+    })
 }
 
 // Verifies the existence of media devices for use of video/audio
@@ -53,7 +49,7 @@ function handleSpeech() {
         recognition.onresult = function(e) {
             if (e.results[0][0].transcript == 'take') {
                 takeScreenshot();
-                alert("Screenshot Taken");
+                openModal();
             }
         };
 
@@ -61,6 +57,12 @@ function handleSpeech() {
             recognition.stop();
         }
     }
+}
+
+// Opens Modal upon taking a screenshot
+function openModal() {
+    let modal = document.getElementById('activateModal');
+    modal.setAttribute('data-toggle', 'modal');
 }
 
 // Function that handlees the screenshot appending to the canvas
