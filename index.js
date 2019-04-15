@@ -4,9 +4,9 @@ if (!hasMedia()) {
 } else {
     window.addEventListener('load', startup, false);
     document.addEventListener('click', function(e) {
-        if (e.target.id == 'special') {
+
             openModal();
-        }
+        
     })
 }
 
@@ -61,8 +61,7 @@ function handleSpeech() {
 
 // Opens Modal upon taking a screenshot
 function openModal() {
-    let modal = document.getElementById('activateModal');
-    modal.setAttribute('data-toggle', 'modal');
+    document.getElementById('activateModal').click();
 }
 
 // Function that handlees the screenshot appending to the canvas
