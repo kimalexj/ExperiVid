@@ -4,9 +4,9 @@ if (!hasMedia()) {
 } else {
     window.addEventListener('load', startup, false);
     document.addEventListener('click', function(e) {
-
-            openModal();
-        
+        if (e.target.id == 'begin') {
+            // TODO: fill here (fullscreen)
+        }
     })
 }
 
@@ -26,11 +26,15 @@ function startup() {
     }).then(function(mediaStreamObject) {
         let video = document.querySelector('video');
         video.srcObject = mediaStreamObject;
+
+        // Delete this section later
         document.addEventListener('keydown', function(e) {
             if (e.keyCode == 13 && video != null) {
                 takeScreenshot();
+                openModal();
             }
         })
+
         video.onloadedmetadata = function(event) {
             video.play();
         };
@@ -64,7 +68,7 @@ function openModal() {
     document.getElementById('activateModal').click();
 }
 
-// Function that handlees the screenshot appending to the canvas
+// Function that handles the screenshot appending to the canvas
 function takeScreenshot() {
     let video = document.querySelector('video');
     var img = document.getElementById('screenshotImage');
@@ -82,10 +86,14 @@ function takeScreenshot() {
     img.src = canvas.toDataURL('image/png');
 
     var image = canvas.toDataURL('image');
-    document.addEventListener('keydown', function(e) {
-        if (e.keyCode == 16) {
+
+    // On download selected actions
+    document.addEventListener('click', function(e) {
+        if (e.target.id == 'download') {
             var a = document.createElement('a');
             a.href = image;
+
+            // TODO: Append session id, picture id, user id
             a.download = 'screenshot.jpg'
             a.click();
         }
