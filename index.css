@@ -22,9 +22,13 @@
 
 #videobox {
     border: solid black 1px;
-    height: 50%;
-    width: 50%;
+    height: 100%;
+    width: 100%;
     z-index: 2;
+}
+
+#begin {
+    margin-left: 30rem;
 }
 
 #videoContainer {

@@ -31,15 +31,17 @@
                                 <li> Whenever you are ready, say "Take" and a screenshot will be taken</li>
                                 <li> If at any point you want to save your screenshot, press the "Download" button</li>
                             </ol>
-                            
-                            <div id="videoContainer">
+                        
+                            <div id="videoContainer" style="display: none">
+                                <img id="selectedImage" src="./images/hobbit.png">
                                 <video id="videobox" autoplay></video>
-                                <button type="button" class="btn btn-primary btn-lg" id="begin">Begin Posing</button>
                             </div>
-                            </div>
+
+                            <button type="button" class="btn btn-primary btn-lg" id="begin">Begin Posing</button>
                         </div>
                     </div>
                 </div>
+            </div>
 
                 <!-- Hidden modal trigger -->
                 <button type="button" data-target="#screenshotModal" data-toggle="modal" id='activateModal' style="display: none"></button>

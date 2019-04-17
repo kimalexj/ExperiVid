@@ -65,12 +65,14 @@ function handleSpeech() {
 
 // Opens Modal upon taking a screenshot
 function openModal() {
+    closeFullscreen();
     document.getElementById('activateModal').click();
 }
 
 // Opens fullscreen view of webcam
 function openFullscreen() {
-    var elem = document.getElementById("videobox");
+    var elem = document.getElementById("videoContainer");
+    elem.style.display = "";
     if (elem.requestFullscreen) {
         elem.requestFullscreen();
     } else if (elem.mozRequestFullScreen) { /* Firefox */
@@ -80,7 +82,29 @@ function openFullscreen() {
     } else if (elem.msRequestFullscreen) { /* IE/Edge */
         elem.msRequestFullscreen();
     }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.keyCode == 27) {
+            closeFullscreen();
+        }
+    });
+    // TODO: Simulate keypress of esc here to automatically close
 }
+
+// Closes fullscreen view of webcam
+function closeFullscreen() {
+    var elem = document.getElementById("videoContainer");
+    elem.style.display = "none";
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+    }
+  }
 
 // Function that handles the screenshot appending to the canvas
 function takeScreenshot() {
