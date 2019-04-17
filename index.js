@@ -6,9 +6,20 @@ if (!hasMedia()) {
     document.addEventListener('click', function(e) {
         if (e.target.id == 'begin') {
             openFullscreen();
-        } 
+        } else if (e.target.id == 'redo') {
+            handleRedo();
+        }
     })
+
+    document.addEventListener('keydown', function(e) {
+        if (e.keyCode == 27) {
+            closeFullscreen();
+        }
+    });
 }
+
+//Global value, should change later
+var pictureNumber = 1;
 
 // Verifies the existence of media devices for use of video/audio
 function hasMedia() {
@@ -54,6 +65,9 @@ function handleSpeech() {
             if (e.results[0][0].transcript == 'take') {
                 takeScreenshot();
                 openModal();
+            } else if (e.results[0][0].transcript == 'done') {
+                updateImage();
+                openFullscreen();
             }
         };
 
@@ -61,6 +75,18 @@ function handleSpeech() {
             recognition.stop();
         }
     }
+}
+
+function handleRedo() {
+    openFullscreen();
+}
+
+function updateImage() {
+    let currImage = document.getElementById('selectedImage');
+    pictureNumber += 1;
+    console.log(pictureNumber);
+    let picturePath = './images/' + pictureNumber + '.png';
+    currImage.src = picturePath;
 }
 
 // Opens Modal upon taking a screenshot
@@ -82,28 +108,23 @@ function openFullscreen() {
     } else if (elem.msRequestFullscreen) { /* IE/Edge */
         elem.msRequestFullscreen();
     }
-
-    document.addEventListener('keydown', function(e) {
-        if (e.keyCode == 27) {
-            closeFullscreen();
-        }
-    });
-    // TODO: Simulate keypress of esc here to automatically close
 }
 
 // Closes fullscreen view of webcam
 function closeFullscreen() {
+    if (document.fullscreenElement) {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+    }
     var elem = document.getElementById("videoContainer");
     elem.style.display = "none";
-    if (document.exitFullscreen) {
-        document.exitFullscreen();
-    } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-    }
   }
 
 // Function that handles the screenshot appending to the canvas
@@ -134,6 +155,9 @@ function takeScreenshot() {
             // TODO: Append session id, picture id, user id
             a.download = 'screenshot.jpg'
             a.click();
+            document.getElementById('activateModal').click();
+            updateImage();
+            openFullscreen();
         }
     });
 }
