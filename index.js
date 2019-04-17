@@ -5,8 +5,8 @@ if (!hasMedia()) {
     window.addEventListener('load', startup, false);
     document.addEventListener('click', function(e) {
         if (e.target.id == 'begin') {
-            // TODO: fill here (fullscreen)
-        }
+            openFullscreen();
+        } 
     })
 }
 
@@ -66,6 +66,20 @@ function handleSpeech() {
 // Opens Modal upon taking a screenshot
 function openModal() {
     document.getElementById('activateModal').click();
+}
+
+// Opens fullscreen view of webcam
+function openFullscreen() {
+    var elem = document.getElementById("videobox");
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) { /* Firefox */
+        elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE/Edge */
+        elem.msRequestFullscreen();
+    }
 }
 
 // Function that handles the screenshot appending to the canvas
