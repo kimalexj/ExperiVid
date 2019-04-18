@@ -18,9 +18,6 @@ if (!hasMedia()) {
     });
 }
 
-//Global value, should change later
-var pictureNumber = 1;
-
 // Verifies the existence of media devices for use of video/audio
 function hasMedia() {
     return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
@@ -33,7 +30,8 @@ function handleError(event) {
 // Media device startup
 function startup() {
     navigator.mediaDevices.getUserMedia({
-        video: true
+        video: true,
+        audio: true
     }).then(function(mediaStreamObject) {
         let video = document.querySelector('video');
         video.srcObject = mediaStreamObject;
@@ -83,8 +81,8 @@ function handleRedo() {
 
 function updateImage() {
     let currImage = document.getElementById('selectedImage');
-    pictureNumber += 1;
-    console.log(pictureNumber);
+
+    // Figure out a way to cycle through images
     let picturePath = './images/' + pictureNumber + '.png';
     currImage.src = picturePath;
 }
