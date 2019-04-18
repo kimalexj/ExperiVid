@@ -8,7 +8,7 @@ if (!hasMedia()) {
         } else if (e.target.id == 'redo') {
             handleRedo();
         } else if (e.target.id == 'continue') {
-            updateImage();
+            handleContinue();
         }
     })
 
@@ -36,7 +36,7 @@ function startup() {
         let video = document.querySelector('video');
         video.srcObject = mediaStreamObject;
 
-        // Delete this section later
+        // Delete this section later (THIS CREATES THE REPEAT)
         document.addEventListener('keydown', function(e) {
             if (e.keyCode == 13 && video != null) {
                 takeScreenshot();
@@ -79,10 +79,11 @@ function handleRedo() {
     openFullscreen();
 }
 
-function handleNextPicture() {
-    document.getElementById('continue').click();
+function handleContinue() {
+    alert('entered heree');
 }
 
+var pictureNumber = 1;
 function updateImage() {
     //let currImage = document.getElementById('selectedImage');
     pictureNumber++;
@@ -147,14 +148,17 @@ function takeScreenshot() {
     img.src = canvas.toDataURL('image/png');
 
     var image = canvas.toDataURL('image');
+    
     document.addEventListener('click', function(e) {
         if (e.target.id == 'download') {
             var a = document.createElement('a');
             a.href = image;
+
+            // Unique id's
             a.download = 'screenshot.jpg'
             a.click();
+            document.getElementById('continue').click();
             document.getElementById('activateModal').click();
-            handleNextPicture();
         }
     });
 }
