@@ -18,6 +18,9 @@ if (!hasMedia()) {
     });
 }
 
+//Global value, should change later
+var pictureNumber = 1;
+
 // Verifies the existence of media devices for use of video/audio
 function hasMedia() {
     return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
@@ -30,8 +33,7 @@ function handleError(event) {
 // Media device startup
 function startup() {
     navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: true
+        video: true
     }).then(function(mediaStreamObject) {
         let video = document.querySelector('video');
         video.srcObject = mediaStreamObject;
@@ -81,8 +83,8 @@ function handleRedo() {
 
 function updateImage() {
     let currImage = document.getElementById('selectedImage');
-
-    // Figure out a way to cycle through images
+    pictureNumber += 1;
+    alert(pictureNumber);
     let picturePath = './images/' + pictureNumber + '.png';
     currImage.src = picturePath;
 }
@@ -147,15 +149,13 @@ function takeScreenshot() {
     // On download selected actions
     document.addEventListener('click', function(e) {
         if (e.target.id == 'download') {
+            document.getElementById('activateModal').click();
             var a = document.createElement('a');
             a.href = image;
 
             // TODO: Append session id, picture id, user id
             a.download = 'screenshot.jpg'
             a.click();
-            document.getElementById('activateModal').click();
-            updateImage();
-            openFullscreen();
         }
     });
 }
