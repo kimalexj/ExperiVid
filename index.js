@@ -1,4 +1,3 @@
-
 if (!hasMedia()) {
     alert("Error: Cannot access get user media API");
 } else {
@@ -8,6 +7,8 @@ if (!hasMedia()) {
             openFullscreen();
         } else if (e.target.id == 'redo') {
             handleRedo();
+        } else if (e.target.id == 'continue') {
+            updateImage();
         }
     })
 
@@ -17,9 +18,6 @@ if (!hasMedia()) {
         }
     });
 }
-
-//Global value, should change later
-var pictureNumber = 1;
 
 // Verifies the existence of media devices for use of video/audio
 function hasMedia() {
@@ -81,12 +79,16 @@ function handleRedo() {
     openFullscreen();
 }
 
+function handleNextPicture() {
+    document.getElementById('continue').click();
+}
+
 function updateImage() {
-    let currImage = document.getElementById('selectedImage');
-    pictureNumber += 1;
+    //let currImage = document.getElementById('selectedImage');
+    pictureNumber++;
     alert(pictureNumber);
-    let picturePath = './images/' + pictureNumber + '.png';
-    currImage.src = picturePath;
+    //let picturePath = './images/' + pictureNumber + '.png';
+    //currImage.src = picturePath;
 }
 
 // Opens Modal upon taking a screenshot
@@ -145,17 +147,15 @@ function takeScreenshot() {
     img.src = canvas.toDataURL('image/png');
 
     var image = canvas.toDataURL('image');
-
-    // On download selected actions
     document.addEventListener('click', function(e) {
         if (e.target.id == 'download') {
-            document.getElementById('activateModal').click();
             var a = document.createElement('a');
             a.href = image;
-
-            // TODO: Append session id, picture id, user id
             a.download = 'screenshot.jpg'
             a.click();
+            document.getElementById('activateModal').click();
+            handleNextPicture();
         }
     });
 }
+

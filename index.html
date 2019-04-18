@@ -26,10 +26,10 @@
                         </div>
                         <div class="card-body" style="text-align: left">
                             <ol>
-                                <li> Hit the "Begin Posing" button to begin</li>
+                                <li> Hit the "Begin Posing" button to start.</li>
                                 <li> With the image overlayed on your camera, stand back and pose as the character!</li>
-                                <li> Whenever you are ready, say "Take" and a screenshot will be taken</li>
-                                <li> When you believe your screenshot is appropriate, press the "Download" button or say "Done"</li>
+                                <li> Whenever you are ready, say "Take" and a screenshot will be taken. (Alternatively you can press "Enter")</li>
+                                <li> When you believe your screenshot is appropriate, press the "Download" button or say "Done".</li>
                             </ol>
                         
                             <div id="videoContainer" style="display: none">
@@ -37,7 +37,11 @@
                                 <video id="videobox" autoplay></video>
                             </div>
 
-                            <button type="button" class="btn btn-primary btn-lg" id="begin">Begin Posing</button>
+                            <div id="buttons">
+                                <button type="button" class="btn btn-primary btn-lg" id="begin">Begin Posing</button>
+                            </div>
+
+                            <button type="button" class = "btn btn-primary btn-lg" id="continue" style="display:none">Continue</button>                            
                         </div>
                     </div>
                 </div>
@@ -58,7 +62,8 @@
                         </div>
                         <div class="modal-body" style="width: 700">
                             <div id="videoContainer">
-                                <img id="screenshotImage" width="620" height="350" style="border: 0; display: flex">
+                                <img id="screenshotImage" width="100%" height="100%" style="border: 0; display: flex">
+                                <img id="selectedImage" src="./images/1.png">
                             </div>
                         </div>
                         <div class="modal-footer">
