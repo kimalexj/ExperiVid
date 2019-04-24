@@ -80,16 +80,18 @@ function handleRedo() {
 }
 
 function handleContinue() {
-    alert('entered heree');
+    updateImage();
 }
 
 var pictureNumber = 1;
 function updateImage() {
-    //let currImage = document.getElementById('selectedImage');
+    let currImage = document.getElementById('selectedImage');
+    let modalImage = document.getElementById('modalImage');
     pictureNumber++;
-    alert(pictureNumber);
-    //let picturePath = './images/' + pictureNumber + '.png';
-    //currImage.src = picturePath;
+    let picturePath = './images/' + pictureNumber + '.png';
+    currImage.src = picturePath;
+    modalImage.src = picturePath;
+    openFullscreen();
 }
 
 // Opens Modal upon taking a screenshot
@@ -146,6 +148,7 @@ function takeScreenshot() {
     context.drawImage(video, 0, 0, width, height);
 
     img.src = canvas.toDataURL('image/png');
+    img.style.transform = "scaleX(-1)";
 
     var image = canvas.toDataURL('image');
     
