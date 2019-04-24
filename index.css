@@ -47,9 +47,21 @@
 }
 
 #videoContainer {
+    position: relative;
     display: flex;
     justify-content: center;
     position: relative;
+}
+
+#helperImage {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    width: 20%;
+    height: 20%;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
 }
 
 #box {

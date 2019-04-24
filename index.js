@@ -85,12 +85,14 @@ function handleContinue() {
 
 var pictureNumber = 1;
 function updateImage() {
+    let helperImage = document.getElementById('helperImage')
     let currImage = document.getElementById('selectedImage');
     let modalImage = document.getElementById('modalImage');
     pictureNumber++;
     let picturePath = './images/' + pictureNumber + '.png';
     currImage.src = picturePath;
     modalImage.src = picturePath;
+    helperImage.src = picturePath;
     openFullscreen();
 }
 
