@@ -1,10 +1,13 @@
 if (!hasMedia()) {
     alert("Error: Cannot access get user media API");
 } else {
-    window.addEventListener('load', startup, false);
+    //window.addEventListener('load', startup, false);
+    //window.addEventListener('load', handleSpeech(), false);
     document.addEventListener('click', function(e) {
         if (e.target.id == 'begin') {
             openFullscreen();
+            startup();
+            handleSpeech();
         } else if (e.target.id == 'redo') {
             handleRedo();
         } 
@@ -20,8 +23,6 @@ if (!hasMedia()) {
 function initiateProgram() {
     localStorage.setItem('user_name', document.getElementById('inputName').value);
     localStorage.setItem('session_id', Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15));
-    alert(localStorage.getItem('user_name'));
-    alert(localStorage.getItem('session_id'));
 }
 
 // Verifies the existence of media devices for use of video/audio
@@ -61,16 +62,37 @@ function handleSpeech() {
 
         var recognition = new webkitSpeechRecognition();
 
-        recognition.lang = "en-US";
-        recognition.start();
+        // Function used to test user speech
+        var userSaid = function(str, s) {
+			return str.indexOf(s) > -1;
+        }
+        
+        // Accuracy of the word
+        var confidenceThreshold = 0.5;
 
+        recognition.lang = "en-US";
+        recognition.continuous = true;
+        recognition.start();
+        
         recognition.onresult = function(e) {
-            if (e.results[0][0].transcript == 'take') {
-                takeScreenshot();
-                openModal();
-            } else if (e.results[0][0].transcript == 'done') {
-                updateImage();
-                openFullscreen();
+            recognition.onresult = function(e) {
+                // Check each result starting from the last one
+                for (var i = e.resultIndex; i < e.results.length; ++i) {
+                    // If this is a final result
+                    if (e.results[i].isFinal) {
+                        // If the result is equal to or greater than the required threshold
+                        if (parseFloat(e.results[i][0].confidence) >= parseFloat(confidenceThreshold)) {
+                            var str = e.results[i][0].transcript;
+                            console.log('Recognised: ' + str);
+                            if (userSaid(str, 'take')) {
+                                takeScreenshot();
+                                openModal();
+                            } else if (userSaid(str, 'next')) {
+                                document.getElementById('download').click();
+                            }
+                        }
+                    }
+                }
             }
         };
 
