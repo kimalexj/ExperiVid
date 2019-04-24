@@ -19,16 +19,14 @@ if (!hasMedia()) {
     });
 }
 
-//Global name state, session id, and picture number for a user
-var user_name = "";
-var session_id = 0;
-var picture_number = 0;
+// Picture number user is on
+var picture_number = 1;
 
 function initiateProgram() {
-    user_name = document.getElementById('inputName').value;
-    session_id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-    alert(user_name);
-    alert(session_id);
+    localStorage.setItem('user_name', document.getElementById('inputName').value);
+    localStorage.setItem('session_id', Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15));
+    alert(localStorage.getItem('user_name'));
+    alert(localStorage.getItem('session_id'));
 }
 
 // Verifies the existence of media devices for use of video/audio
@@ -173,7 +171,8 @@ function takeScreenshot() {
             a.href = image;
 
             // Unique id's
-            a.download = user_name + '-' + session_id + '-' + picture_number + '.jpg'
+            a.download = localStorage.getItem('user_name') + '-' + localStorage.getItem('session_id') + '-' + picture_number + '.jpg'
+            alert(a.download);
             a.click();
             document.getElementById('continue').click();
             document.getElementById('activateModal').click();
