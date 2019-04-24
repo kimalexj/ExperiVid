@@ -7,10 +7,8 @@ if (!hasMedia()) {
             openFullscreen();
         } else if (e.target.id == 'redo') {
             handleRedo();
-        } else if (e.target.id == 'continue') {
-            handleContinue();
-        }
-    })
+        } 
+    });
 
     document.addEventListener('keydown', function(e) {
         if (e.keyCode == 27) {
@@ -18,9 +16,6 @@ if (!hasMedia()) {
         }
     });
 }
-
-// Picture number user is on
-var picture_number = 1;
 
 function initiateProgram() {
     localStorage.setItem('user_name', document.getElementById('inputName').value);
@@ -89,22 +84,52 @@ function handleRedo() {
     openFullscreen();
 }
 
-function handleContinue() {
-    updateImage();
-}
-
+// Handles next picture updating
 var pictureNumber = 1;
-function updateImage() {
-    let helperImage = document.getElementById('helperImage')
-    let currImage = document.getElementById('selectedImage');
-    let modalImage = document.getElementById('modalImage');
-    pictureNumber++;
-    let picturePath = './images/' + pictureNumber + '.png';
-    picture_number++;
-    currImage.src = picturePath;
-    modalImage.src = picturePath;
-    helperImage.src = picturePath;
-    openFullscreen();
+
+// Handle Download click
+document.addEventListener('click', function(e) {
+    if (e.target.id == 'download') {
+        var a = document.createElement('a');
+        a.href = localStorage.getItem('image_context');
+
+        // Unique id's
+        a.download = localStorage.getItem('user_name') + '-' + localStorage.getItem('session_id') + '-' + pictureNumber + '.jpg'
+        a.click();
+        document.getElementById('activateModal').click();
+
+        let helperImage = document.getElementById('helperImage')
+        let currImage = document.getElementById('selectedImage');
+        let modalImage = document.getElementById('modalImage');
+        pictureNumber++;
+        let picturePath = './images/' + pictureNumber + '.png';
+        currImage.src = picturePath;
+        modalImage.src = picturePath;
+        helperImage.src = picturePath;
+        openFullscreen();
+    }
+});
+
+// Function that handles the screenshot appending to the canvas
+function takeScreenshot() {
+    let video = document.querySelector('video');
+    var img = document.getElementById('screenshotImage');
+    var context;
+    var width = video.offsetWidth, 
+        height = video.offsetHeight;
+
+    canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+
+    context = canvas.getContext('2d');
+    context.drawImage(video, 0, 0, width, height);
+
+    img.src = canvas.toDataURL('image/png');
+    img.style.transform = "scaleX(-1)";
+
+    var image = canvas.toDataURL('image');
+    localStorage.setItem('image_context', image);
 }
 
 // Opens Modal upon taking a screenshot
@@ -143,40 +168,4 @@ function closeFullscreen() {
     }
     var elem = document.getElementById("videoContainer");
     elem.style.display = "none";
-  }
-
-// Function that handles the screenshot appending to the canvas
-function takeScreenshot() {
-    let video = document.querySelector('video');
-    var img = document.getElementById('screenshotImage');
-    var context;
-    var width = video.offsetWidth, 
-        height = video.offsetHeight;
-
-    canvas = document.createElement('canvas');
-    canvas.width = width;
-    canvas.height = height;
-
-    context = canvas.getContext('2d');
-    context.drawImage(video, 0, 0, width, height);
-
-    img.src = canvas.toDataURL('image/png');
-    img.style.transform = "scaleX(-1)";
-
-    var image = canvas.toDataURL('image');
-    
-    document.addEventListener('click', function(e) {
-        if (e.target.id == 'download') {
-            var a = document.createElement('a');
-            a.href = image;
-
-            // Unique id's
-            a.download = localStorage.getItem('user_name') + '-' + localStorage.getItem('session_id') + '-' + picture_number + '.jpg'
-            alert(a.download);
-            a.click();
-            document.getElementById('continue').click();
-            document.getElementById('activateModal').click();
-        }
-    });
 }
-
