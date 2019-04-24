@@ -19,6 +19,18 @@ if (!hasMedia()) {
     });
 }
 
+//Global name state, session id, and picture number for a user
+var user_name = "";
+var session_id = 0;
+var picture_number = 0;
+
+function initiateProgram() {
+    user_name = document.getElementById('inputName').value;
+    session_id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    alert(user_name);
+    alert(session_id);
+}
+
 // Verifies the existence of media devices for use of video/audio
 function hasMedia() {
     return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
@@ -90,6 +102,7 @@ function updateImage() {
     let modalImage = document.getElementById('modalImage');
     pictureNumber++;
     let picturePath = './images/' + pictureNumber + '.png';
+    picture_number++;
     currImage.src = picturePath;
     modalImage.src = picturePath;
     helperImage.src = picturePath;
@@ -160,7 +173,7 @@ function takeScreenshot() {
             a.href = image;
 
             // Unique id's
-            a.download = 'screenshot.jpg'
+            a.download = user_name + '-' + session_id + '-' + picture_number + '.jpg'
             a.click();
             document.getElementById('continue').click();
             document.getElementById('activateModal').click();

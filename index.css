@@ -64,6 +64,13 @@
     transform: scaleX(-1);
 }
 
+#landing-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 200px;
+}
+
 #box {
     width: 400px;
     height: 500px;
