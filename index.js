@@ -59,10 +59,10 @@ function startup() {
 function handleSpeech() {
     // Receiving speech command
     if (window.hasOwnProperty('webkitSpeechRecognition')) {
-        var grammar = '#JSGF V1.0; grammar responses; public <responses> = click | next';
-        var speechRecognitionList = new SpeechGrammarList();
-        speechRecognitionList.addFromString(grammar, 1);
         var recognition = new webkitSpeechRecognition();
+        var grammar = '#JSGF V1.0; grammar responses; public <responses> = click | next';
+        var speechRecognitionList = new webkitSpeechGrammarList();
+        speechRecognitionList.addFromString(grammar, 1);
         recognition.grammar = speechRecognitionList;
 
         // Function used to test user speech
