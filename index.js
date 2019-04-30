@@ -59,8 +59,11 @@ function startup() {
 function handleSpeech() {
     // Receiving speech command
     if (window.hasOwnProperty('webkitSpeechRecognition')) {
-
+        var grammar = '#JSGF V1.0; grammar responses; public <responses> = click | next';
+        var speechRecognitionList = new SpeechGrammarList();
+        speechRecognitionList.addFromString(grammar, 1);
         var recognition = new webkitSpeechRecognition();
+        recognition.grammar = speechRecognitionList;
 
         // Function used to test user speech
         var userSaid = function(str, s) {
@@ -73,23 +76,21 @@ function handleSpeech() {
         recognition.lang = "en-US";
         recognition.continuous = true;
         recognition.start();
-        
+
         recognition.onresult = function(e) {
-            recognition.onresult = function(e) {
-                // Check each result starting from the last one
-                for (var i = e.resultIndex; i < e.results.length; ++i) {
-                    // If this is a final result
-                    if (e.results[i].isFinal) {
-                        // If the result is equal to or greater than the required threshold
-                        if (parseFloat(e.results[i][0].confidence) >= parseFloat(confidenceThreshold)) {
-                            var str = e.results[i][0].transcript;
-                            console.log('Recognised: ' + str);
-                            if (userSaid(str, 'take')) {
-                                takeScreenshot();
-                                openModal();
-                            } else if (userSaid(str, 'next')) {
-                                document.getElementById('download').click();
-                            }
+            // Check each result starting from the last one
+            for (var i = e.resultIndex; i < e.results.length; ++i) {
+                // If this is a final result
+                if (e.results[i].isFinal) {
+                    // If the result is equal to or greater than the required threshold
+                    if (parseFloat(e.results[i][0].confidence) >= parseFloat(confidenceThreshold)) {
+                        var str = e.results[i][0].transcript;
+                        console.log('Recognised: ' + str);
+                        if (userSaid(str, 'click')) {
+                            takeScreenshot();
+                            openModal();
+                        } else if (userSaid(str, 'next')) {
+                            document.getElementById('download').click();
                         }
                     }
                 }
