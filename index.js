@@ -42,7 +42,7 @@ function startup() {
         let video = document.querySelector('video');
         video.srcObject = mediaStreamObject;
 
-        // Delete this section later (THIS CREATES THE REPEAT)
+        // Delete this section later 
         document.addEventListener('keydown', function(e) {
             if (e.keyCode == 13 && video != null) {
                 takeScreenshot();
@@ -117,6 +117,7 @@ document.addEventListener('click', function(e) {
 
         // Unique id's
         a.download = localStorage.getItem('user_name') + '-' + localStorage.getItem('session_id') + '-' + pictureNumber + '.jpg'
+        console.log(a.download);
         a.click();
         document.getElementById('activateModal').click();
 
