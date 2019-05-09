@@ -1,13 +1,16 @@
 if (!hasMedia()) {
     alert("Error: Cannot access get user media API");
 } else {
-    //window.addEventListener('load', startup, false);
-    //window.addEventListener('load', handleSpeech(), false);
     document.addEventListener('click', function(e) {
         if (e.target.id == 'begin') {
-            openFullscreen();
-            startup();
-            handleSpeech();
+            if (selectedPictures.length > 0) {
+                startImage();
+                openFullscreen();
+                startup();
+                handleSpeech();
+            } else {
+                alert("Please enqueue an image before starting")
+            }
         } else if (e.target.id == 'redo') {
             handleRedo();
         } 
@@ -118,7 +121,6 @@ document.addEventListener('click', function(e) {
 
         // Unique id's
         a.download = localStorage.getItem('user_name') + '-' + localStorage.getItem('session_id') + '-' + pictureNumber + '.jpg'
-        console.log(a.download);
         a.click();
         document.getElementById('activateModal').click();
 
@@ -134,11 +136,11 @@ document.addEventListener('click', function(e) {
     }
 });
 
+// Event Listener for Picture Dashboard
 var allPictures = ['arya', 'bond', 'hermione', 'hobbit', 'ironman', 'joker', 'jonsnow', 'leia', 'mia', 'shazam', 
                    'superman', 'terminator', 'wonderwoman'];
 
 var selectedPictures = []
-// Event Listener for Picture Dashboard
 document.addEventListener('click', function(e) {
     var clickedImage = e.target.id;
     if (allPictures.includes(clickedImage)) {
@@ -157,6 +159,13 @@ document.addEventListener('click', function(e) {
         console.log(selectedPictures);
     }
 })
+
+function startImage() {
+    var first = selectedPictures[0];
+    let picturePath = './images/' + first + '.png';
+    document.getElementById('selectedImage').src = picturePath;
+    document.getElementById('helperImage').src = picturePath;
+}
 
 // Function that handles the screenshot appending to the canvas
 function takeScreenshot() {
