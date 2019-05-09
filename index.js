@@ -111,7 +111,7 @@ function handleRedo() {
 }
 
 // Handles next picture updating
-var pictureNumber = 1;
+var pictureNumber = 0;
 
 // Handle Download click
 document.addEventListener('click', function(e) {
@@ -128,7 +128,9 @@ document.addEventListener('click', function(e) {
         let currImage = document.getElementById('selectedImage');
         let modalImage = document.getElementById('modalImage');
         pictureNumber++;
-        let picturePath = './images/' + pictureNumber + '.png';
+        let imageIndex = selectedPictures[pictureNumber];
+        let picturePath = './images/' + imageIndex + '.png';
+        console.log(picturePath);
         currImage.src = picturePath;
         modalImage.src = picturePath;
         helperImage.src = picturePath;
@@ -156,15 +158,16 @@ document.addEventListener('click', function(e) {
                 selectedPictures.splice(index, 1);
             }
         }
-        console.log(selectedPictures);
     }
 })
 
+// Initializes the starting of data collection with the properly enqueued data
 function startImage() {
     var first = selectedPictures[0];
     let picturePath = './images/' + first + '.png';
     document.getElementById('selectedImage').src = picturePath;
     document.getElementById('helperImage').src = picturePath;
+    document.getElementById('modalImage').src = picturePath;
 }
 
 // Function that handles the screenshot appending to the canvas
