@@ -134,6 +134,30 @@ document.addEventListener('click', function(e) {
     }
 });
 
+var allPictures = ['arya', 'bond', 'hermione', 'hobbit', 'ironman', 'joker', 'jonsnow', 'leia', 'mia', 'shazam', 
+                   'superman', 'terminator', 'wonderwoman'];
+
+var selectedPictures = []
+// Event Listener for Picture Dashboard
+document.addEventListener('click', function(e) {
+    var clickedImage = e.target.id;
+    if (allPictures.includes(clickedImage)) {
+        if (!selectedPictures.includes(clickedImage)) {
+            selectedPictures.push(clickedImage);
+            e.target.style.background = 'red';
+            e.target.innerHTML = 'Dequeue';
+        } else if (selectedPictures.includes(clickedImage)) {
+            e.target.style.background = 'blue';
+            e.target.innerHTML = 'Enqueue';
+            var index = selectedPictures.indexOf(clickedImage);
+            if (index > -1) {
+                selectedPictures.splice(index, 1);
+            }
+        }
+        console.log(selectedPictures);
+    }
+})
+
 // Function that handles the screenshot appending to the canvas
 function takeScreenshot() {
     let video = document.querySelector('video');
