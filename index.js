@@ -110,31 +110,30 @@ function handleRedo() {
     openFullscreen();
 }
 
-// Handles next picture updating
-var pictureNumber = 0;
-
 // Handle Download click
 document.addEventListener('click', function(e) {
     if (e.target.id == 'download') {
         var a = document.createElement('a');
         a.href = localStorage.getItem('image_context');
-
+        var pictureName = selectedPictures[0];
         // Unique id's
-        a.download = localStorage.getItem('user_name') + '-' + localStorage.getItem('session_id') + '-' + pictureNumber + '.jpg'
+        a.download = localStorage.getItem('user_name') + '-' + localStorage.getItem('session_id') + '-' + pictureName + '.jpg'
         a.click();
         document.getElementById('activateModal').click();
 
         let helperImage = document.getElementById('helperImage')
         let currImage = document.getElementById('selectedImage');
         let modalImage = document.getElementById('modalImage');
-        pictureNumber++;
-        let imageIndex = selectedPictures[pictureNumber];
+        selectedPictures.splice(0, 1);
+        let imageIndex = selectedPictures[0];
+        console.log(a.download);
         let picturePath = './images/' + imageIndex + '.png';
-        console.log(picturePath);
         currImage.src = picturePath;
         modalImage.src = picturePath;
         helperImage.src = picturePath;
-        openFullscreen();
+        if (selectedPictures.length > 0) {
+            openFullscreen();
+        }
     }
 });
 
@@ -210,7 +209,7 @@ function openFullscreen() {
         elem.webkitRequestFullscreen();
     } else if (elem.msRequestFullscreen) { /* IE/Edge */
         elem.msRequestFullscreen();
-    }
+    }    
 }
 
 // Closes fullscreen view of webcam
