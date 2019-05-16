@@ -1,13 +1,16 @@
 if (!hasMedia()) {
     alert("Error: Cannot access get user media API");
 } else {
-    //window.addEventListener('load', startup, false);
-    //window.addEventListener('load', handleSpeech(), false);
     document.addEventListener('click', function(e) {
         if (e.target.id == 'begin') {
-            openFullscreen();
-            startup();
-            handleSpeech();
+            if (selectedPictures.length > 0) {
+                startImage();
+                openFullscreen();
+                startup();
+                handleSpeech();
+            } else {
+                alert("Please enqueue an image before starting")
+            }
         } else if (e.target.id == 'redo') {
             handleRedo();
         } 
@@ -107,32 +110,64 @@ function handleRedo() {
     openFullscreen();
 }
 
-// Handles next picture updating
-var pictureNumber = 1;
-
 // Handle Download click
 document.addEventListener('click', function(e) {
     if (e.target.id == 'download') {
         var a = document.createElement('a');
         a.href = localStorage.getItem('image_context');
-
+        var pictureName = selectedPictures[0];
         // Unique id's
-        a.download = localStorage.getItem('user_name') + '-' + localStorage.getItem('session_id') + '-' + pictureNumber + '.jpg'
-        console.log(a.download);
+        a.download = localStorage.getItem('user_name') + '-' + localStorage.getItem('session_id') + '-' + pictureName + '.jpg'
         a.click();
         document.getElementById('activateModal').click();
 
         let helperImage = document.getElementById('helperImage')
         let currImage = document.getElementById('selectedImage');
         let modalImage = document.getElementById('modalImage');
-        pictureNumber++;
-        let picturePath = './images/' + pictureNumber + '.png';
+        selectedPictures.splice(0, 1);
+        let imageIndex = selectedPictures[0];
+        console.log(a.download);
+        let picturePath = './images/' + imageIndex + '.png';
         currImage.src = picturePath;
         modalImage.src = picturePath;
         helperImage.src = picturePath;
-        openFullscreen();
+        if (selectedPictures.length > 0) {
+            openFullscreen();
+        }
     }
 });
+
+// Event Listener for Picture Dashboard
+var allPictures = ['arya', 'bond', 'hermione', 'hobbit', 'ironman', 'joker', 'jonsnow', 'leia', 'mia', 'shazam', 
+                   'superman', 'terminator', 'wonderwoman'];
+
+var selectedPictures = []
+document.addEventListener('click', function(e) {
+    var clickedImage = e.target.id;
+    if (allPictures.includes(clickedImage)) {
+        if (!selectedPictures.includes(clickedImage)) {
+            selectedPictures.push(clickedImage);
+            e.target.style.background = 'red';
+            e.target.innerHTML = 'Dequeue';
+        } else if (selectedPictures.includes(clickedImage)) {
+            e.target.style.background = 'blue';
+            e.target.innerHTML = 'Enqueue';
+            var index = selectedPictures.indexOf(clickedImage);
+            if (index > -1) {
+                selectedPictures.splice(index, 1);
+            }
+        }
+    }
+})
+
+// Initializes the starting of data collection with the properly enqueued data
+function startImage() {
+    var first = selectedPictures[0];
+    let picturePath = './images/' + first + '.png';
+    document.getElementById('selectedImage').src = picturePath;
+    document.getElementById('helperImage').src = picturePath;
+    document.getElementById('modalImage').src = picturePath;
+}
 
 // Function that handles the screenshot appending to the canvas
 function takeScreenshot() {
@@ -174,7 +209,7 @@ function openFullscreen() {
         elem.webkitRequestFullscreen();
     } else if (elem.msRequestFullscreen) { /* IE/Edge */
         elem.msRequestFullscreen();
-    }
+    }    
 }
 
 // Closes fullscreen view of webcam

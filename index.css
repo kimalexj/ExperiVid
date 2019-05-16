@@ -4,7 +4,11 @@
     flex-wrap: wrap;
     justify-content: center; 
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
+}
+
+#picCard {
+    margin-bottom: 20px;
 }
 
 #selectedImage {
