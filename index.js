@@ -124,15 +124,21 @@ document.addEventListener('click', function(e) {
         let helperImage = document.getElementById('helperImage')
         let currImage = document.getElementById('selectedImage');
         let modalImage = document.getElementById('modalImage');
-        selectedPictures.splice(0, 1);
-        let imageIndex = selectedPictures[0];
-        console.log(a.download);
-        let picturePath = './images/' + imageIndex + '.png';
+
+        let prevImage = document.getElementById(selectedPictures.shift());
+        prevImage.style.background = '#007BFF';
+        prevImage.innerHTML = 'Enqueue';
+
+        let imageName = selectedPictures[0];
+        let picturePath = './images/' + imageName + '.png';
+
         currImage.src = picturePath;
         modalImage.src = picturePath;
         helperImage.src = picturePath;
         if (selectedPictures.length > 0) {
             openFullscreen();
+        } else {
+            alert("You have taken all selected images! You may queue more if you choose");
         }
     }
 });
@@ -150,7 +156,7 @@ document.addEventListener('click', function(e) {
             e.target.style.background = 'red';
             e.target.innerHTML = 'Dequeue';
         } else if (selectedPictures.includes(clickedImage)) {
-            e.target.style.background = 'blue';
+            e.target.style.background = '#007BFF';
             e.target.innerHTML = 'Enqueue';
             var index = selectedPictures.indexOf(clickedImage);
             if (index > -1) {
