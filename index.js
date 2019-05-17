@@ -3,7 +3,10 @@ if (!hasMedia()) {
 } else {
     document.addEventListener('click', function(e) {
         if (e.target.id == 'begin') {
-            if (selectedPictures.length > 0) {
+            if (e.target.innerHTML == 'Continue') {
+                openFullscreen();
+            } else if (selectedPictures.length > 0) {
+                e.target.innerHTML = 'Continue';
                 startImage();
                 openFullscreen();
                 startup();
@@ -138,7 +141,8 @@ document.addEventListener('click', function(e) {
         if (selectedPictures.length > 0) {
             openFullscreen();
         } else {
-            alert("You have taken all selected images! You may queue more if you choose");
+            document.getElementById('begin').innerHTML = 'Begin Posing';
+            alert("Thank you! You have taken all selected images! You may queue more if you choose");
         }
     }
 });
