@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Experivid</title>
+        <meta charset='utf-8'>
+    
+        <link rel='stylesheet' href='index.css'>
+
+        <!-- Boostrap Required CDN's-->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src='index.js'></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        
+        <!-- Primary Display for Webcam and screenshot -->
+        <div class="jumbotron jumbotron-fluid">
+            <h1 class="display-4" style="text-align: center; padding-bottom: 20px">ExperiVid</h1>
+            <div class="row" id="insideJumbo" style="display:flex; justify-content: center">
+                <div class="col-md-10">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            Directions
+                        </div>
+                        <div class="card-body" style="text-align: left">
+                            <ol>
+                                <li> Hit the "Begin Posing" button to start.</li>
+                                <li> With the image overlayed on your camera, stand back and pose as the character!</li>
+                                <li> Whenever you are ready, say "click" and a screenshot will be taken. (Alternatively you can press "Enter")</li>
+                                <li> If at any point the voice recognition feels like it's not reading, wait about 6 seconds *without background noise* and try the phrase again.</li>
+                                <li> When you believe your screenshot is appropriate, press the "Download" button.</li>
+                            </ol>
+                        
+                            <div id="videoContainer" style="display: none">
+                                <img id="selectedImage" src="./images/arya.png">
+                                <img id="helperImage" src="./images/arya.png">
+                                <video id="videobox" autoplay></video>
+                            </div>
+
+                            <div id="buttons">
+                                <button type="button" class="btn btn-primary btn-lg" id="begin">Begin Posing</button>
+                            </div>                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hidden modal trigger -->
+            <button type="button" data-target="#screenshotModal" data-toggle="modal" id='activateModal' style="display: none"></button>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="screenshotModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Screenshot Taken</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body" style="width: 700">
+                        <div id="videoContainer">
+                            <img id="screenshotImage" width="100%" height="100%" style="border: 0;">
+                            <img id="modalImage" src="./images/arya.png">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="redo">Redo</button>
+                    <button type="button" class="btn btn-primary" id="download">Download</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- Jumbotron end -->
+
+        <div class="row" id="subsection">
+            <div class="card" style="width: 18rem;" id="picCard">
+                <img class="card-img-top" src="./images/arya.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Arya</h5>
+                    <button type="button" class="btn btn-primary choice" id="arya">Enqueue</button>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;" id="picCard">
+                <img class="card-img-top" src="./images/bond.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">James Bond</h5>
+                    <button type="button" class="btn btn-primary choice" id="bond">Enqueue</button>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;" id="picCard">
+                <img class="card-img-top" src="./images/hermione.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Hermione</h5>
+                    <button type="button" class="btn btn-primary choice" id="hermione">Enqueue</button>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;" id="picCard">
+                <img class="card-img-top" src="./images/hobbit.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Hobbit</h5>
+                    <button type="button" class="btn btn-primary choice" id="hobbit">Enqueue</button>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;" id="picCard">
+                <img class="card-img-top" src="./images/ironman.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Ironman</h5>
+                    <button type="button" class="btn btn-primary choice" id="ironman">Enqueue</button>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;" id="picCard">
+                <img class="card-img-top" src="./images/joker.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Joker</h5>
+                    <button type="button" class="btn btn-primary choice" id="joker">Enqueue</button>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;" id="picCard">
+                <img class="card-img-top" src="./images/jonsnow.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Jon Snow</h5>
+                    <button type="button" class="btn btn-primary choice" id="jonsnow">Enqueue</button>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;" id="picCard">
+                <img class="card-img-top" src="./images/leia.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Leia</h5>
+                    <button type="button" class="btn btn-primary choice" id="leia">Enqueue</button>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;" id="picCard">
+                <img class="card-img-top" src="./images/mia.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Mia</h5>
+                    <button type="button" class="btn btn-primary choice" id="mia">Enqueue</button>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;" id="picCard">
+                <img class="card-img-top" src="./images/shazam.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Shazam</h5>
+                    <button type="button" class="btn btn-primary choice" id="shazam">Enqueue</button>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;" id="picCard">
+                <img class="card-img-top" src="./images/superman.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Superman</h5>
+                    <button type="button" class="btn btn-primary choice" id="superman">Enqueue</button>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;" id="picCard">
+                <img class="card-img-top" src="./images/terminator.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Terminator</h5>
+                    <button type="button" class="btn btn-primary choice" id="terminator">Enqueue</button>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;" id="picCard">
+                <img class="card-img-top" src="./images/wonderwoman.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Wonder Woman</h5>
+                    <button type="button" class="btn btn-primary choice" id="wonderwoman">Enqueue</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
